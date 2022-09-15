@@ -1,3 +1,7 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "$schema": "http://json.schemastore.org/eslintrc",
+  "rules": {
+    "no-console": 1
+  }
 }
