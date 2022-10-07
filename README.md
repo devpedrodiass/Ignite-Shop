@@ -1,34 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# 🚀 Ignite Shop 🚀
 
-First, run the development server:
+We built a Simple Store, to train our fundamentals about React, NextJS and Stripe API
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### 👉 Link to Access: https://move-it-xi-ten.vercel.app/
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚙ Config Section
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+ ### 🛠 Tools:
+ - React - TypeScript
+ - Stitches
+ - LocalStorage
+ - ContextAPI
+ - StripeAPI
+ 
+### ✔ You can:
+- Start a Cycle to Study or Work
+  - After the Cycle end, you will able to do a Challenge
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+ ## 📸 Screenshot Section
+### 💻 Desktop Mode
 
-## Learn More
+## Initial Page
+![image](https://user-images.githubusercontent.com/62482908/194675710-904a0f8a-82dc-447f-9da9-309c84dd01ab.png)
 
-To learn more about Next.js, take a look at the following resources:
+## Hover on Slide
+![image](https://user-images.githubusercontent.com/62482908/194675714-3273416a-bc49-4d62-a59a-25e3e3fda563.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Detail Product
+![image](https://user-images.githubusercontent.com/62482908/194675734-c382bd7a-be98-4bfb-884f-133b470aa1f8.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Aside Cart
+![image](https://user-images.githubusercontent.com/62482908/194675745-9c26e5bf-c76f-4236-be08-5a382c9e7221.png)
 
-## Deploy on Vercel
+## Stripe Purchase
+![image](https://user-images.githubusercontent.com/62482908/194675755-77cc177d-4050-4d8b-bf41-ed6afbce476b.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Success Page
+![image](https://user-images.githubusercontent.com/62482908/194675777-f0a16a15-e318-4a97-ac72-c1c4852d7ba1.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+👉 Visit my linkedin: https://www.linkedin.com/in/pedrovdf/
