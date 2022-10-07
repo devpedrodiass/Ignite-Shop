@@ -3,8 +3,9 @@ import Image from "next/future/image";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { GetStaticProps } from "next/types";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Stripe from "stripe";
+import { CartContext, Product } from "../../../context/cart";
 import { stripe } from "../../../lib/stripe";
 import {
   ImageContainer,
@@ -13,39 +14,19 @@ import {
 } from "../../../styles/pages/product";
 
 interface ProductByIdPageProps {
-  product: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-    description: string;
-    defaultPriceId: string;
-  };
+  product: Product;
 }
 
 export default function ProductByIdPage({ product }: ProductByIdPageProps) {
   const { isFallback } = useRouter();
 
-  if (isFallback) {
-    return <p>Loading...</p>;
-  }
+  const { addItemToCart } = useContext(CartContext);
 
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
     useState(false);
 
-  async function handleBuyProduct() {
-    try {
-      setIsCreatingCheckoutSession(true);
-      const response = await axios.post("/api/checkout", {
-        priceId: product.defaultPriceId,
-      });
-      const { checkoutUrl } = response.data;
-
-      window.location.href = checkoutUrl;
-    } catch (error) {
-      setIsCreatingCheckoutSession(false);
-      console.error(error.message);
-    }
+  if (isFallback) {
+    return <p>Loading...</p>;
   }
 
   return (
@@ -71,9 +52,9 @@ export default function ProductByIdPage({ product }: ProductByIdPageProps) {
           <button
             disabled={isCreatingCheckoutSession}
             type="button"
-            onClick={handleBuyProduct}
+            onClick={() => addItemToCart(product)}
           >
-            Buy now!
+            Add to cart
           </button>
         </ProductDetails>
       </ProductContainer>
@@ -113,7 +94,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         imageUrl: productFromStripe.images[0],
         price: price.unit_amount / 100,
         description: productFromStripe.description,
-        defaultPriceId: price.id,
+        priceId: price.id,
       },
       revalidate: 60 * 60 * 1,
     },

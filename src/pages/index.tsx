@@ -1,5 +1,5 @@
 import Image from "next/future/image";
-import { HomeContainer, Product } from "../styles/pages/home";
+import { HomeContainer, Product as StyledProduct } from "../styles/pages/home";
 
 import { useKeenSlider } from "keen-slider/react";
 
@@ -8,17 +8,17 @@ import Stripe from "stripe";
 import { stripe } from "../lib/stripe";
 import Link from "next/link";
 import Head from "next/head";
+import { Bag } from "phosphor-react";
+import { useContext } from "react";
+import { CartContext, Product } from "../context/cart";
 
 interface HomeProps {
-  products: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: number;
-  }[];
+  products: Product[];
 }
 
 export default function Home({ products }: HomeProps) {
+  const { addItemToCart } = useContext(CartContext);
+
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 3,
@@ -36,19 +36,21 @@ export default function Home({ products }: HomeProps) {
       <HomeContainer ref={sliderRef} className="keen-slider">
         {hasProducts &&
           products.map((product) => (
-            <Link
-              key={product.id}
-              href={`/product/${product.id}`}
-              prefetch={false}
-            >
-              <Product className="keen-slider__slide">
+            <StyledProduct key={product.id} className="keen-slider__slide">
+              <Link href={`/product/${product.id}`} prefetch={false}>
                 <Image src={product.imageUrl} width={520} height={520} alt="" />
-                <footer>
+              </Link>
+              <footer>
+                <div>
                   <strong>{product.name}</strong>
                   <span>$ {product.price.toString()}</span>
-                </footer>
-              </Product>
-            </Link>
+                </div>
+
+                <button type="button" onClick={() => addItemToCart(product)}>
+                  <Bag size={24}></Bag>
+                </button>
+              </footer>
+            </StyledProduct>
           ))}
       </HomeContainer>
     </>
@@ -66,6 +68,7 @@ export const getStaticProps: GetStaticProps = async () => {
       name: product.name,
       imageUrl: product.images[0],
       price: price.unit_amount / 100,
+      priceId: price.id,
     };
   });
   return {

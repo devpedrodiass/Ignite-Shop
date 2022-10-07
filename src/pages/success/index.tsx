@@ -5,18 +5,24 @@ import Link from "next/link";
 import React from "react";
 import Stripe from "stripe";
 import { stripe } from "../../lib/stripe";
-import { ImageContainer, SuccessContainer } from "../../styles/pages/success";
+import {
+  ImageContainer,
+  ImagesContainer,
+  SuccessContainer,
+} from "../../styles/pages/success";
 
 interface SuccessPageProps {
   customerName: string;
-  product: {
+  count: number;
+  products: {
     imageUrl: "string";
-  };
+  }[];
 }
 
 export default function SuccessPage({
   customerName,
-  product,
+  products,
+  count,
 }: SuccessPageProps) {
   return (
     <>
@@ -27,18 +33,25 @@ export default function SuccessPage({
 
       <SuccessContainer>
         <h1>Purchase had been succeed!</h1>
+        <ImagesContainer>
+          {products.map((product) => {
+            return (
+              <ImageContainer key={product.imageUrl}>
+                <Image
+                  src={product.imageUrl}
+                  alt={customerName}
+                  width={120}
+                  height={110}
+                />
+              </ImageContainer>
+            );
+          })}
+        </ImagesContainer>
 
-        <ImageContainer>
-          <Image
-            src={product.imageUrl}
-            alt={customerName}
-            width={120}
-            height={110}
-          />
-        </ImageContainer>
         <p>
-          Uhuul! <strong>{customerName}</strong>, your purchase is already on
-          way to your home!
+          Uhuul! <strong>{customerName}</strong>, your purchase with {count}{" "}
+          {count === 1 ? "Item " : "Items "}
+          is already on way to your home!
         </p>
 
         <Link href="/">
@@ -67,14 +80,21 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   });
 
   const customerName = session.customer_details.name;
-  const product = session.line_items.data[0].price.product as Stripe.Product;
+
+  const products = session.line_items.data.map((item) => {
+    const product = item.price.product as Stripe.Product;
+    return {
+      imageUrl: product.images[0],
+    };
+  });
+
+  const count = products.length;
 
   return {
     props: {
+      count,
       customerName,
-      product: {
-        imageUrl: product.images[0],
-      },
+      products,
     },
   };
 };
