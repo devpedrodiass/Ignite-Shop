@@ -3,7 +3,7 @@
 
 We built a Simple Store, to train our fundamentals about React, NextJS and Stripe API
 
-### 👉 Link to Access: https://move-it-xi-ten.vercel.app/
+### 👉 Link to Access: https://ignite-shop-ten.vercel.app
 
 ## ⚙ Config Section
 
